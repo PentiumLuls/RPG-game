@@ -9,7 +9,9 @@ function make2DArray(cols, rows) {
 function fillWithRandomTiles(grid) {
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
-            grid[i][j] = new Tile(town);
+            floor(random(2)) === 1
+                ? grid[i][j] = new Tile(hotel)
+                : grid[i][j] = new Tile(farm_field);
         }
     }
 }
@@ -22,26 +24,35 @@ class GameGrid {
         fillWithRandomTiles(this.grid);
     }
 
-    draw() {
-        scale(1.5);
+    getCoordinatesOfTile(tileX, tileY) {
+        let xOffset = 0;
         let yOffset = -25;
-        for (let y = 0; y < this.rows; y++) {
-            if (y % 2 === 1) {
-                yOffset = 30 * y;
-            } else {
-                yOffset += 30;
+        if (tileY % 2 === 1) {
+            xOffset = 80;
+            yOffset = 28 * tileY;
+        } else {
+            //TODO OPTIMIZE
+            for (let y = 0; y <= tileY; y += 1) {
+                yOffset += 27;
             }
+        }
+        return {
+            x: tileX * tileSizes.width - xOffset,
+            y: tileY * tileSizes.height - yOffset
+        };
+    }
+
+    draw(playerX, playerY) {
+        for (let y = 0; y < this.rows; y++) {
             for (let x = 0; x < this.cols; x++) {
                 const tile = this.grid[x][y];
-                let xOffset = 0;
-                if (y % 2 === 1)
-                    xOffset = 80;
-                image(tile.type.image, x * tile.type.width - xOffset, y * tile.type.height - yOffset);
-                
+                const coordinates = this.getCoordinatesOfTile(x, y);
+                image(tile.type.image, coordinates.x, coordinates.y);
+
                 if (isDevMode) {
                     textSize(40);
                     fill(0, 102, 153);
-                    text(x + ', ' + y, x * tile.type.width - xOffset + 30, y * tile.type.height - yOffset + 80);
+                    text(x + ', ' + y, coordinates.x + 30, coordinates.y + 80);
                 }
             }
         }
