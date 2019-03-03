@@ -2,3 +2,13 @@ body {
     margin: 0;
     overflow:hidden;
 }
+
+#game-panel {
+    display: flex;
+}
+
+#editor-panel {
+    width: 45%;
+    height: 85%;
+    display: block;
+}

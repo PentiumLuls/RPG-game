@@ -1,5 +1,5 @@
 class Tile {
-    constructor(type) {
-        this.type = type;
+    constructor(image) {
+        this.image = image;
     }
 }

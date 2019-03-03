@@ -2,23 +2,21 @@ let gameGrid;
 
 let player;
 
-const tileSizes = {width: 162, height: 150};
-let town;
-let farm_field;
-let hotel;
+const tileSizes = {width: 16, height: 16};
+let grass1;
 
 let isDevMode = true;
 
 function preload() {
-    town = {image: loadImage('img/tiles/town.png')};
-    farm_field = {image: loadImage('img/tiles/farm-field.png')};
-    hotel = {image: loadImage('img/tiles/hotel.png')}
+    //LOAD IMAGES
+    grass1 = loadImage('img/tiles/grass1.png');
 }
 
 function setup() {
     gameGrid = new GameGrid(10, 10);
     player = new Player(5, 5);
-    createCanvas(windowWidth, windowHeight);
+    const canvas = createCanvas(windowWidth / 2 - 20, windowHeight - 100);
+    canvas.parent("canvas-window");
 }
 
 function draw() {
@@ -31,4 +29,8 @@ function keyPressed() {
     if (keyCode === 192) {
         isDevMode = !isDevMode;
     }
+}
+
+function runEditorCode() {
+    const code = editor.getValue();
 }

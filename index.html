@@ -2,11 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Гамес презент</title>
     <link rel="stylesheet" href="main.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.js"></script>
+    <!--CODE MIRROR-->
+    <script src="codemirror-5.44.0/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="codemirror-5.44.0/lib/codemirror.css">
+    <link rel="stylesheet" href="codemirror-5.44.0/theme/tomorrow-night-bright.css">
+    <script src="codemirror-5.44.0/mode/javascript/javascript.js"></script>
+    <!--AUTOCOMPLETES ADDON-->
+    <script src="codemirror-5.44.0/addon/hint/javascript-hint.js"></script>
+    <script src="codemirror-5.44.0/addon/hint/show-hint.js"></script>
+    <link rel="stylesheet" href="codemirror-5.44.0/addon/hint/show-hint.css">
 </head>
 <body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.js"></script>
+<div id="game-panel">
+    <div id="canvas-window"></div>
+    <div id="editor-panel">
+        <div id="code-editor"></div>
+        <button id="run-code" onclick="runEditorCode()">RUN</button>
+    </div>
+</div>
+<script>
+    var editor = CodeMirror(document.getElementById('code-editor'), {
+        value: "alert('sos');\nvar i = 10;",
+        theme: "tomorrow-night-bright",
+        lineNumbers: true,
+        extraKeys: {"Ctrl-Space": "autocomplete"}
+    });
+</script>
+
 <script src="js/sketch.js"></script>
 <script src="js/world/Tile.js"></script>
 <script src="js/world/GameGrid.js"></script>
